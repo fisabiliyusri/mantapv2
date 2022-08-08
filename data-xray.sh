@@ -312,6 +312,52 @@ cat > /etc/xray/conf/trojan_ws.json << END
 }
 END
 #XRAYTROJANWS
+#
+#TROJAN_GRPC_TLS
+cat > /etc/xray/conf/xtrojan_grpc.json << END
+{
+  "inbounds": [
+    {
+      "port": 4488,
+      "listen": "127.0.0.1",
+      "protocol": "trojan",
+      "tag": "xtrojanGRPC",
+      "settings": {
+        "clients": [
+          {
+            "password": "${uuid1}",
+            "add": "$domain",
+            "email": "xtrojanGRPC@XRAYbyRARE" 
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "gun",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "",
+          "alpn": [
+            "h2"
+          ],
+          "certificates": [
+            {
+              "certificateFile": "/etc/xray/xray.crt",
+              "keyFile": "/etc/xray/xray.key"
+            }
+          ]
+        },
+        "grpcSettings": {
+          "serviceName": "xtrojangrpc"
+        }
+      }
+    }
+  ]
+}
+END
+#TROJAN_GRPC_TLS
+#
+#
 #5599
 #SHADOWSOCKSWS
 #
