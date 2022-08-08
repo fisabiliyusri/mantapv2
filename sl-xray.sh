@@ -236,7 +236,7 @@ cat > /etc/xray/conf/2vless.json << END
           {
             "path": "/xrayssws",
             "dest": 5599,
-            "xver": 3
+            "xver": 2
           },
           {
             "path": "/xraytrojanws",
