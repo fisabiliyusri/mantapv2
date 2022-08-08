@@ -338,10 +338,9 @@ cat > /etc/xray/conf/trojan_grpc.json << END
       },
       "streamSettings": {
         "network": "grpc",
-        "security": "tls",
-        "tlsSettings": {
-          "acceptProxyProtocol": true,
-          "path": "/trojangrpc"
+        "security": "none",
+        "grpcSettings": {
+          "serviceName": trojangrpc
         }
       }
     }
