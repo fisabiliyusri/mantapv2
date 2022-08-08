@@ -317,7 +317,7 @@ cat > /etc/xray/conf/trojan_ws.json << END
 END
 #XRAYTROJANWS
 #
-#Trojan_grpc443
+#Trojan_grpcGakbisa
 cat > /etc/xray/conf/trojan_grpc.json << END
 {
     "inbounds": [
@@ -329,7 +329,7 @@ cat > /etc/xray/conf/trojan_grpc.json << END
             "settings": {
                 "clients": [
                     {
-                        "password": "${uuid}"
+                        "password": "${uuid}",
                         "email": "trojanGRPCX@XRAYbyRARE"
 #xtrgrpc
                     }
@@ -359,7 +359,7 @@ cat > /etc/xray/conf/trojan_grpc.json << END
     ]
 }
 END
-#Trojan_grpc443
+#Trojan_grpc443gakbisa
 #
 #
 #XTROJAN_GRPC_TLS
