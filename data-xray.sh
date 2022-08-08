@@ -234,11 +234,6 @@ cat > /etc/xray/conf/2vless.json << END
             "xver": 0
           },
           {
-            "path": "/xraysshws",
-            "dest": 6927,
-            "xver": 2
-          },
-          {
             "path": "/xrayssws",
             "dest": 5599,
             "xver": 2
@@ -319,35 +314,6 @@ END
 #XRAYTROJANWS
 #
 #APACOBA
-cat > /etc/xray/conf/ssh_ws.json << END
-{
-  "inbounds": [
-    {
-      "port": 6927,
-      "listen": "127.0.0.1",
-      "protocol": "ssh",
-      "tag": "sshWSTLS",
-      "settings": {
-        "clients": [
-          {
-            "password": "${uuid1}",
-            "email": "sshWSTLS@XRAYbyRARE"
-          }
-        ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "ws",
-        "security": "none",
-        "wsSettings": {
-          "acceptProxyProtocol": true,
-          "path": "/xraysshws"
-        }
-      }
-    }
-  ]
-}
-END
 #APACOBA
 #
 #XTROJAN_GRPC_TLS
@@ -1268,7 +1234,6 @@ iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8853 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 6927 -j ACCEPT
 # xray
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31301 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31299 -j ACCEPT
@@ -1279,7 +1244,6 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8853 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 6927 -j ACCEPT
 iptables-save >/etc/iptables.rules.v4
 netfilter-persistent save
 netfilter-persistent reload
