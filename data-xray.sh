@@ -325,10 +325,12 @@ cat > /etc/xray/conf/trojan_grpc.json << END
             "port": 7999,
             "listen": "127.0.0.1",
             "protocol": "trojan",
+            "tag": "trojanGRPCX",
             "settings": {
                 "clients": [
                     {
                         "password": "${uuid}"
+                        "email": "trojanGRPCX@XRAYbyRARE"
 #xtrgrpc
                     }
                 ],
@@ -338,7 +340,6 @@ cat > /etc/xray/conf/trojan_grpc.json << END
                 "network": "gun",
                 "security": "tls",
                 "tlsSettings": {
-                    "acceptProxyProtocol": true,
                     "serverName": "$domain",
                     "alpn": [
                         "h2"
