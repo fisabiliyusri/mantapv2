@@ -231,6 +231,11 @@ cat > /etc/xray/conf/2vless.json << END
             "xver": 0
           },
           {
+            "path": "/xraytrojanws",
+            "dest": 4399,
+            "xver": 1
+          },
+          {
             "path": "/xrayws",
             "dest": 31297,
             "xver": 1
@@ -265,6 +270,40 @@ cat > /etc/xray/conf/2vless.json << END
   ]
 }
 END
+#
+#4369
+#XRAYTROJANWS
+#VLESS_WSTLS
+cat > /etc/xray/conf/trojan_ws.json << END
+{
+  "inbounds": [
+    {
+      "port": 4399,
+      "listen": "127.0.0.1",
+      "protocol": "trojan",
+      "tag": "trojanWSTLS",
+      "settings": {
+        "clients": [
+          {
+            "password": "${uuid1}",
+            "email": "trojanWSTLS@XRAYbyRARE"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/xraytrojanws"
+        }
+      }
+    }
+  ]
+}
+END
+#XRAYTROJANWS
 #3
 #VLESS_H2
 cat > /etc/xray/conf/3vless_h2.json << END
