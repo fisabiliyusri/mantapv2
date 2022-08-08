@@ -234,9 +234,14 @@ cat > /etc/xray/conf/2vless.json << END
             "xver": 0
           },
           {
+            "path": "/xrayssws",
+            "dest": 5599,
+            "xver": 3
+          },
+          {
             "path": "/xraytrojanws",
             "dest": 4399,
-            "xver": 1
+            "xver": 2
           },
           {
             "path": "/xrayws",
@@ -307,6 +312,41 @@ cat > /etc/xray/conf/trojan_ws.json << END
 }
 END
 #XRAYTROJANWS
+#5599
+#SHADOWSOCKSWS
+#
+cat > /etc/xray/conf/shadowsocks_ws.json << END
+{
+  "inbounds": [
+    {
+      "port": 5599,
+      "listen": "127.0.0.1",
+      "protocol": "shadowsocks",
+      "tag": "shadowsocksWSTLS",
+      "settings": {
+        "clients": [
+          {
+            "password": "${uuid1}",
+            "method": "chacha20-poly1305",
+            "email": "shadowsocksWSTLS@XRAYbyRARE"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/xrayssws"
+        }
+      }
+    }
+  ]
+}
+END
+#SHADOWSOCKSWS
+#
 #3
 #VLESS_H2
 cat > /etc/xray/conf/3vless_h2.json << END
@@ -1134,6 +1174,7 @@ iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 31304 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 31297 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 4399 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 5599 -j ACCEPT
 # xray
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31301 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31299 -j ACCEPT
@@ -1142,6 +1183,7 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31304 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31297 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 4399 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 5599 -j ACCEPT
 iptables-save >/etc/iptables.rules.v4
 netfilter-persistent save
 netfilter-persistent reload
