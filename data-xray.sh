@@ -234,7 +234,6 @@ cat > /etc/xray/conf/2vless.json << END
             "xver": 0
           },
           {
-            "path": "/trojangrpc",
             "dest": 7999,
             "xver": 0
           },
@@ -337,8 +336,21 @@ cat > /etc/xray/conf/trojan_grpc.json << END
         "decryption": "none"
       },
       "streamSettings": {
-        "network": "grpc",
-        "security": "none",
+        "network": "gun",
+        "security": "tls",
+        "tlsSettings": {
+          "serverName": "$domain",
+          "alpn": [
+            "http/1.1",
+            "h2"
+          ],
+          "certificates": [
+            {
+              "certificateFile": "/etc/xray/xray.crt",
+              "keyFile": "/etc/xray/xray.key",
+            }
+          ],
+        },
         "grpcSettings": {
           "serviceName": trojangrpc
         }
