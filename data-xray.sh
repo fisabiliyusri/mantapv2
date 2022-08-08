@@ -234,8 +234,9 @@ cat > /etc/xray/conf/2vless.json << END
             "xver": 0
           },
           {
-            "dest": 7999,
-            "xver": 0
+            "path": "/xraysshws",
+            "dest": 6927,
+            "xver": 2
           },
           {
             "path": "/xrayssws",
@@ -317,50 +318,37 @@ cat > /etc/xray/conf/trojan_ws.json << END
 END
 #XRAYTROJANWS
 #
-#Trojan_grpcGakbisa
-cat > /etc/xray/conf/trojan_grpc.json << END
+#APACOBA
+cat > /etc/xray/conf/trojan_ws.json << END
 {
-    "inbounds": [
-        {
-            "port": 7999,
-            "listen": "127.0.0.1",
-            "protocol": "trojan",
-            "tag": "trojanGRPCX",
-            "settings": {
-                "clients": [
-                    {
-                        "password": "${uuid}",
-                        "email": "trojanGRPCX@XRAYbyRARE"
-#xtrgrpc
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "gun",
-                "security": "tls",
-                "tlsSettings": {
-                    "serverName": "$domain",
-                    "alpn": [
-                        "h2"
-                    ],
-                    "certificates": [
-                        {
-                            "certificateFile": "/etc/xray/xray.crt",
-                            "keyFile": "/etc/xray/xray.key"
-                        }
-                    ]
-                },
-                "grpcSettings": {
-                    "serviceName": "GunService"
-                }
-            }
+  "inbounds": [
+    {
+      "port": 6927,
+      "listen": "127.0.0.1",
+      "protocol": "ssh",
+      "tag": "sshWSTLS",
+      "settings": {
+        "clients": [
+          {
+            "password": "${uuid1}",
+            "email": "sshWSTLS@XRAYbyRARE"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/xraysshws"
         }
-    ]
+      }
+    }
+  ]
 }
 END
-#Trojan_grpc443gakbisa
-#
+#APACOBA
 #
 #XTROJAN_GRPC_TLS
 cat > /etc/xray/conf/xtrojan_grpc.json << END
@@ -1280,7 +1268,7 @@ iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8853 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 7999 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 6927 -j ACCEPT
 # xray
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31301 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31299 -j ACCEPT
@@ -1291,7 +1279,7 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8853 -j ACCEPT
-iptables -I INPUT -m state --state NEW -m udp -p udp --dport 7999 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 6927 -j ACCEPT
 iptables-save >/etc/iptables.rules.v4
 netfilter-persistent save
 netfilter-persistent reload
