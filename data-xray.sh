@@ -319,7 +319,7 @@ END
 #XRAYTROJANWS
 #
 #APACOBA
-cat > /etc/xray/conf/trojan_ws.json << END
+cat > /etc/xray/conf/ssh_ws.json << END
 {
   "inbounds": [
     {
