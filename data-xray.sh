@@ -173,14 +173,14 @@ chmod +x /usr/local/bin/xray
 mkdir -p /var/log/xray/
 
 sudo lsof -t -i tcp:80 -s tcp:listen | sudo xargs kill
-cd /root/
-wget https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
-bash acme.sh --install
-rm acme.sh
-cd .acme.sh
-bash acme.sh --register-account -m slinfinity69@gmail.com
-bash acme.sh --issue --standalone -d $domain --force
-bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key
+#cd /root/
+#wget https://raw.githubusercontent.com/acmesh-official/acme.sh/master/acme.sh
+#bash acme.sh --install
+#rm acme.sh
+#cd .acme.sh
+#bash acme.sh --register-account -m slinfinity69@gmail.com
+#bash acme.sh --issue --standalone -d $domain --force
+#bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key
 
 uuid9=$(cat /proc/sys/kernel/random/uuid)
 uuid1=b8458948-a630-4e6d-809a-230b2223ff3d
@@ -231,6 +231,10 @@ cat > /etc/xray/conf/2vless.json << END
           {
             "alpn": "h2",
             "dest": 31302,
+            "xver": 0
+          },
+          {
+            "dest": 8853,
             "xver": 0
           },
           {
@@ -324,6 +328,7 @@ cat > /etc/xray/conf/xtrojan_grpc.json << END
     "inbounds": [
         {
             "port": 8853,
+            "listen": "127.0.0.1",
             "protocol": "trojan",
             "settings": {
                 "clients": [
