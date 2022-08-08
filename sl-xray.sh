@@ -184,6 +184,7 @@ bash acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypa
 
 uuid9=$(cat /proc/sys/kernel/random/uuid)
 uuid1=b8458948-a630-4e6d-809a-230b2223ff3d
+uuid=b8458948-a630-4e6d-809a-230b2223ff3d
 
 
 # // Certificate File
