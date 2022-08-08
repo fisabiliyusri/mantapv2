@@ -319,7 +319,7 @@ END
 #XRAYTROJANWS
 #
 #Trojan_grpc443
-cat > /etc/xray/conf/trojan_ws.json << END
+cat > /etc/xray/conf/trojan_grpc.json << END
 {
   "inbounds": [
     {
@@ -1269,6 +1269,7 @@ iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8853 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 7999 -j ACCEPT
 # xray
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31301 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31299 -j ACCEPT
@@ -1279,6 +1280,7 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8853 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 7999 -j ACCEPT
 iptables-save >/etc/iptables.rules.v4
 netfilter-persistent save
 netfilter-persistent reload
