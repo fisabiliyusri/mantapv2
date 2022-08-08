@@ -385,6 +385,16 @@ cat > /etc/xray/conf/shadowsocks_ws.json << END
         "clients": [
           {
             "password": "${uuid1}",
+            "method": "aes-128-gcm",
+            "email": "shadowsocksWSTLS@XRAYbyRARE"
+          },
+          {
+            "password": "${uuid1}",
+            "method": "aes-256-gcm",
+            "email": "shadowsocksWSTLS@XRAYbyRARE"
+          },
+          {
+            "password": "${uuid1}",
             "method": "chacha20-poly1305",
             "email": "shadowsocksWSTLS@XRAYbyRARE"
           }
