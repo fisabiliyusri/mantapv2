@@ -320,43 +320,42 @@ END
 #Trojan_grpc443
 cat > /etc/xray/conf/trojan_grpc.json << END
 {
-  "inbounds": [
-    {
-      "port": 7999,
-      "listen": "127.0.0.1",
-      "protocol": "trojan",
-      "tag": "trojanGRPCTLS",
-      "settings": {
-        "clients": [
-          {
-            "password": "${uuid1}",
-            "email": "trojanGRPCTLS@XRAYbyRARE"
-          }
-        ],
-        "decryption": "none"
-      },
-      "streamSettings": {
-        "network": "gun",
-        "security": "tls",
-        "tlsSettings": {
-          "serverName": "$domain",
-          "alpn": [
-            "http/1.1",
-            "h2"
-          ],
-          "certificates": [
-            {
-              "certificateFile": "/etc/xray/xray.crt",
-              "keyFile": "/etc/xray/xray.key",
+    "inbounds": [
+        {
+            "port": 7999,
+            "listen": "127.0.0.1",
+            "protocol": "trojan",
+            "settings": {
+                "clients": [
+                    {
+                        "password": "${uuid}"
+#xtrgrpc
+                    }
+                ],
+                "decryption": "none"
+            },
+            "streamSettings": {
+                "network": "gun",
+                "security": "tls",
+                "tlsSettings": {
+                    "acceptProxyProtocol": true,
+                    "serverName": "$domain",
+                    "alpn": [
+                        "h2"
+                    ],
+                    "certificates": [
+                        {
+                            "certificateFile": "/etc/xray/xray.crt",
+                            "keyFile": "/etc/xray/xray.key"
+                        }
+                    ]
+                },
+                "grpcSettings": {
+                    "serviceName": "GunService"
+                }
             }
-          ],
-        },
-        "grpcSettings": {
-          "serviceName": trojangrpc
         }
-      }
-    }
-  ]
+    ]
 }
 END
 #Trojan_grpc443
