@@ -234,7 +234,8 @@ cat > /etc/xray/conf/2vless.json << END
             "xver": 0
           },
           {
-            "dest": 8853,
+            "path": "/trojangrpc",
+            "dest": 7999,
             "xver": 0
           },
           {
@@ -317,7 +318,40 @@ cat > /etc/xray/conf/trojan_ws.json << END
 END
 #XRAYTROJANWS
 #
-#TROJAN_GRPC_TLS
+#Trojan_grpc443
+cat > /etc/xray/conf/trojan_ws.json << END
+{
+  "inbounds": [
+    {
+      "port": 7999,
+      "listen": "127.0.0.1",
+      "protocol": "trojan",
+      "tag": "trojanGRPCTLS",
+      "settings": {
+        "clients": [
+          {
+            "password": "${uuid1}",
+            "email": "trojanGRPCTLS@XRAYbyRARE"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "security": "tls",
+        "tlsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/trojangrpc"
+        }
+      }
+    }
+  ]
+}
+END
+#Trojan_grpc443
+#
+#
+#XTROJAN_GRPC_TLS
 cat > /etc/xray/conf/xtrojan_grpc.json << END
 {
     "log": {
@@ -328,7 +362,6 @@ cat > /etc/xray/conf/xtrojan_grpc.json << END
     "inbounds": [
         {
             "port": 8853,
-            "listen": "127.0.0.1",
             "protocol": "trojan",
             "settings": {
                 "clients": [
