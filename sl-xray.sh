@@ -43,32 +43,35 @@ mkdir -p /var/log/v2ray/
 
 # install
 apt-get --reinstall --fix-missing install -y linux-headers-cloud-amd64 bzip2 gzip coreutils wget jq screen rsyslog iftop htop net-tools zip unzip wget net-tools curl nano sed screen gnupg gnupg1 bc apt-transport-https build-essential dirmngr libxml-parser-perl git lsof
-cat> /root/.profile << END
-# ~/.profile: executed by Bourne-compatible login shells.
 
-if [ "$BASH" ]; then
-  if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-  fi
-fi
-
-mesg n || true
-clear
-menu
-END
-chmod 644 /root/.profile
 #
-# install NGINX webserver
-sudo apt install gnupg2 ca-certificates lsb-release -y 
-echo "deb http://nginx.org/packages/mainline/debian $(lsb_release -cs) nginx" | sudo tee /etc/apt/sources.list.d/nginx.list 
-echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx 
-curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key 
-# gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
-sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
-sudo apt update 
-apt -y install nginx 
-systemctl daemon-reload
-systemctl enable nginx
+# Check OS version
+if [[ -e /etc/debian_version ]]; then
+	source /etc/os-release
+	OS=$ID # debian or ubuntu
+elif [[ -e /etc/centos-release ]]; then
+	source /etc/os-release
+	OS=centos
+fi
+if [[ $OS == 'ubuntu' ]]; then
+		sudo add-apt-repository ppa:ondrej/nginx -y
+		apt update ; apt upgrade -y
+		sudo apt install nginx -y
+		sudo apt install python3-certbot-nginx -y
+		systemctl daemon-reload
+        systemctl enable nginx
+elif [[ $OS == 'debian' ]]; then
+		sudo apt install gnupg2 ca-certificates lsb-release -y 
+        echo "deb http://nginx.org/packages/mainline/debian $(lsb_release -cs) nginx" | sudo tee /etc/apt/sources.list.d/nginx.list 
+        echo -e "Package: *\nPin: origin nginx.org\nPin: release o=nginx\nPin-Priority: 900\n" | sudo tee /etc/apt/preferences.d/99nginx 
+        curl -o /tmp/nginx_signing.key https://nginx.org/keys/nginx_signing.key 
+        # gpg --dry-run --quiet --import --import-options import-show /tmp/nginx_signing.key
+        sudo mv /tmp/nginx_signing.key /etc/apt/trusted.gpg.d/nginx_signing.asc
+        sudo apt update 
+        apt -y install nginx 
+        systemctl daemon-reload
+        systemctl enable nginx
+fi
 #
 sudo pkill -f nginx & wait $!
 systemctl stop nginx
