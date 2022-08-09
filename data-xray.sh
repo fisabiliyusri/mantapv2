@@ -234,6 +234,11 @@ cat > /etc/xray/conf/2vless.json << END
             "xver": 0
           },
           {
+            "path": "/xraybarussws",
+            "dest": 6699,
+            "xver": 1
+          },
+          {
             "path": "/xrayssws",
             "dest": 5599,
             "xver": 2
@@ -414,6 +419,49 @@ cat > /etc/xray/conf/shadowsocks_ws.json << END
 }
 END
 #SHADOWSOCKSWS
+#
+#SHADOWSOCKSWS2022
+cat > /etc/xray/conf/shadowsocks2022_ws.json << END
+{
+  "inbounds": [
+    {
+      "port": 6699,
+      "listen": "127.0.0.1",
+      "protocol": "shadowsocks",
+      "tag": "shadowsocksbaruWSTLS",
+      "settings": {
+        "clients": [
+          {
+            "password": "${uuid1}",
+            "method": "2022-blake3-aes-128-gcm",
+            "email": "shadowsocksbaruWSTLS@XRAYbyRARE"
+          },
+          {
+            "password": "${uuid1}",
+            "method": "2022-blake3-aes-256-gcm",
+            "email": "shadowsocksbaruWSTLS@XRAYbyRARE"
+          },
+          {
+            "password": "${uuid1}",
+            "method": "2022-blake3-chacha20-poly1305",
+            "email": "shadowsocksbaruWSTLS@XRAYbyRARE"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "none",
+        "wsSettings": {
+          "acceptProxyProtocol": true,
+          "path": "/xraybarussws"
+        }
+      }
+    }
+  ]
+}
+END
+#SHADOWSOCKSWS2022
 #
 #3
 #VLESS_H2
