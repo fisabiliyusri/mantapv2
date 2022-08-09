@@ -390,7 +390,7 @@ cat > /etc/xray/conf/shadowsocks_ws.json << END
           },
           {
             "password": "${uuid1}",
-            "method": "2022-blake3-aes-256-gcm",
+            "method": "aes-256-gcm",
             "email": "shadowsocksWSTLS@XRAYbyRARE"
           },
           {
