@@ -1292,6 +1292,7 @@ iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 8853 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m tcp -p tcp --dport 6699 -j ACCEPT
 # xray
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31301 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 31299 -j ACCEPT
@@ -1302,6 +1303,7 @@ iptables -I INPUT -m state --state NEW -m udp -p udp --dport 443 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 4399 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 5599 -j ACCEPT
 iptables -I INPUT -m state --state NEW -m udp -p udp --dport 8853 -j ACCEPT
+iptables -I INPUT -m state --state NEW -m udp -p udp --dport 6699 -j ACCEPT
 iptables-save >/etc/iptables.rules.v4
 netfilter-persistent save
 netfilter-persistent reload
