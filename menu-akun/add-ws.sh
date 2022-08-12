@@ -16,8 +16,12 @@ MYIP=$(wget -qO- ipinfo.io/ip);
 clear
 domain=$(cat /etc/xray/domain)
 
+#
 uuid9=$(cat /proc/sys/kernel/random/uuid)
 uuid=b8458948-a630-4e6d-809a-230b2223ff3d
+#
+urltrojan="trojan://${user}@${domain}:443"
+urlvlessopok="vless://${uuid}@${domain}:443?path=/xrayws&security=tls&encryption=none&host=${domain}&type=ws&sni=api.midtrans.com#${user}"
 
 clear
 echo -e ""
@@ -29,6 +33,7 @@ echo -e "IP/Host: ${MYIP}"
 echo -e "Address: ${domain}"
 echo -e "Port: 443"
 echo -e "Password/id: ${uuid}"
+echo -e "Alter ID: 0"
 echo -e "Created: $hariini"
 echo -e "Expired: $exp"
 echo -e "Protocol Network: ws"
