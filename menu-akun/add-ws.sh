@@ -21,7 +21,10 @@ uuid9=$(cat /proc/sys/kernel/random/uuid)
 uuid=b8458948-a630-4e6d-809a-230b2223ff3d
 #
 urltrojan="trojan://${user}@${domain}:443"
-urlvlessopok="vless://${uuid}@${domain}:443?path=/xrayws&security=tls&encryption=none&host=${domain}&type=ws&sni=api.midtrans.com#${user}"
+
+
+urltrojanopok="trojan://${uuid}@104.17.3.81:443?path=ws://api.midtrans.com/xraytrojanws&security=tls&host=${domain}&type=ws&sni=api.midtrans.com#${user}"
+urlvlessopok="vless://${uuid}@104.17.3.81}:443?path=ws://api.midtrans.com/xrayws&security=tls&encryption=none&host=${domain}&type=ws&sni=api.midtrans.com#${user}"
 
 clear
 echo -e ""
